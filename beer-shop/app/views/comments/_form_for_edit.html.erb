@@ -1,0 +1,24 @@
+<%= form_with(model: @comment) do |f| %>
+  <% if @comment.errors.any? %>
+    <div id="error_explanation">
+      <h5><%= pluralize(@comment.errors.count, "error") %> prohibited this post from being saved:</h5>
+      <ul class="list-unstyled">
+        <% @comment.errors.each do |error| %>
+          <li class="alert alert-danger"><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field py-2">
+    <%= f.label :body, class: "pb-2" %>
+    <%= f.text_area :body, class: "form-control" %>
+  </div>
+
+  <%= f.hidden_field :user_id %>
+  <%= f.hidden_field :product_id %>
+
+  <div>
+    <%= f.submit class: "btn btn-success" %>
+  </div>
+<% end %>

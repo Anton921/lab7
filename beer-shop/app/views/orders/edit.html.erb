@@ -1,0 +1,30 @@
+<div class="text-center">
+  <br>
+  <%= image_tag('https://i.pinimg.com/originals/94/c0/27/94c027b8ea40107047747f67601d21e9.png', height: '200') %>
+
+  <%= form_for(@order) do |f| %>
+    <p>
+      <%= f.label 'Name' %>
+      <br>
+      <%= f.text_field :name, required: true %>
+    </p>
+    <p>
+      <%= f.label 'Phone' %>
+      <br>
+      <%= f.text_field :phone, required: true %>
+    </p>
+    <p>
+      <%= f.label 'Address' %>
+      <br>
+      <%= f.text_field :address, required: true %>
+    </p>
+    <p>
+      <%= f.label 'how can we halp you' %>
+      <br>
+      <%= f.text_area :info, required: true %>
+    </p>
+    <p>
+      <%= f.submit 'Place an Order', class: 'btn btn-dark mb-5' %>
+    </p>
+  <% end %>
+</div>

@@ -1,0 +1,37 @@
+<% if @order_items.count > 0 %>
+  <%= button_to ' Empty Cart', order_path(@order), method: :delete, class: 'btn btn-outline-secondary mt-4 fa fa-trash' %>
+<% end %>
+
+<% @order_items.each do |order_item| %>
+  <div class="container text-muted d-flex">
+    <div class="row w-100 mt-2 mb-2">
+      <div class="col-12 col-sm-6 col-md-3 col-lg-2">
+        <%= image_tag("#{order_item.product.image}", height: '150', width: '150') %>
+      </div>
+      <div class="col-12 col-sm-6 col-md-9 col-lg-10 p-0 ms-2 ms-md-0">
+        <p> <%= order_item.product.title %> </p>
+        <p> <%= order_item.quantity %> </p>
+        <b>Price:</b> <%= number_to_currency(order_item.total_price.round, unit: "UAH", format: "%n %u") %></p>
+        <div class="d-flex">
+          <%= button_to '+', product_order_items_path(id: order_item.id, product_id: order_item.product_id), method: :post, class: 'btn btn-primary' %>
+          <%= button_to 'Remove Item', product_order_item_path(id: order_item.id, product_id: order_item.product_id), method: :delete, class: 'btn btn-danger' %>
+          <%= button_to '-', product_order_items_path(id: order_item.id, product_id: order_item.product_id, name: 'minus'), method: :post, class: 'btn btn-primary' %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+<% end %>
+
+<div class="checkout-links text-muted mb-5 d-flex align-items-center flex-row justify-content-between">
+  <p>Price: <%= number_to_currency(@order.full_price, unit: "UAH", format: "%n %u") %><p>
+  <% if @order_items.count > 0 %>
+    <%= link_to 'Order your 🍺 ', edit_order_path(@order), class: 'btn btn-danger' %>
+  <% end %>
+</div>
+<% if @order_items.count <= 0 %>
+  <div class="text-center">
+    <p> No 🍺 in your Cart((( </p>
+    <%= link_to '🍺 Home 🍺', root_path(@order), class: 'btn btn-danger' %>
+  </div>
+<% end %>
